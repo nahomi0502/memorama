@@ -34,13 +34,13 @@ const textoPistas = document.getElementById("pistas-restantes");
 // FIGURAS GEOMETRICAS
 
 const figuras = [
-    { id: 1, nombre: "CÍRCULO", dibujo: "●", color: "#ef4444" },
-    { id: 2, nombre: "TRIÁNGULO", dibujo: "▲", color: "#f97316" },
-    { id: 3, nombre: "CUADRADO", dibujo: "■", color: "#2563eb" },
+    { id: 1, nombre: "CÍRCULO", dibujo: "🔴", color: "#ef4444" },
+    { id: 2, nombre: "TRIÁNGULO", dibujo: "♦", color: "#f97316" },
+    { id: 3, nombre: "CUADRADO", dibujo: "🟦", color: "#2563eb" },
     { id: 4, nombre: "RECTÁNGULO", dibujo: "▬", color: "#16a34a" },
-    { id: 5, nombre: "ROMBO", dibujo: "◆", color: "#9333ea" },
+    { id: 5, nombre: "ROMBO", dibujo: "🔶", color: "#9333ea" },
     { id: 6, nombre: "ESTRELLA", dibujo: "★", color: "#eab308" },
-    { id: 7, nombre: "CORAZÓN", dibujo: "♥️", color: "#ec4899" },
+    { id: 7, nombre: "CORAZÓN", dibujo: "🩷", color: "#ec4899" },
     { id: 8, nombre: "ÓVALO", dibujo: "⬭", color: "#0891b2" },
     { id: 9, nombre: "PENTÁGONO", dibujo: "⬠", color: "#7c3aed" },
     { id: 10, nombre: "HEXÁGONO", dibujo: "⬡", color: "#0d9488" },
@@ -50,7 +50,7 @@ const figuras = [
     { id: 14, nombre: "TRAPECIO", dibujo: "⏢", color: "#059669" },
     { id: 15, nombre: "PARALELOGRAMO", dibujo: "▱", color: "#7c3aed" },
     { id: 16, nombre: "CILINDRO", dibujo: "🛢️", color: "#0284c7" },
-    { id: 17, nombre: "CUBO", dibujo: "▣", color: "#be123c" },
+    { id: 17, nombre: "OCTAGONO", dibujo: "🛑", color: "#be123c" },
     { id: 18, nombre: "DIAMANTE", dibujo: "💎", color: "#0891b2" }
 ];
 
