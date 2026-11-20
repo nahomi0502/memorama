@@ -3,185 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#312e81">
-
-    <title>Memorama Mágico | Juego de memoria</title>
-
+    <title>Memorama Mágico</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+<body class="pagina-menu">
 
-<body>
-
-    <header class="encabezado">
-        <div class="logo">🧠</div>
-        <h1>MEMORAMA MÁGICO</h1>
-        <p>¡Entrena tu mente y demuestra tu memoria!</p>
-        <div class="etiqueta">DESAFÍO DE MEMORIA 2026</div>
-    </header>
-
-    <main class="contenedor">
-
-        <section class="bienvenida">
-            <h2>¡Bienvenido al desafío! 🎮</h2>
-            <p>Encuentra todas las parejas de dibujos iguales.</p>
-        </section>
-
-        <section class="configuracion">
-
-            <label for="dificultad">Selecciona la dificultad:</label>
-
-            <select id="dificultad">
-                <option value="8">Fácil - 8 parejas</option>
-                <option value="12" selected>Medio - 12 parejas</option>
-                <option value="18">Difícil - 18 parejas</option>
-            </select>
-
-        </section>
-
-        <section class="estadisticas">
-
-            <div class="dato">
-                <span>🎯</span>
-                <h3>Movimientos</h3>
-                <p id="movimientos">0</p>
-            </div>
-
-            <div class="dato">
-                <span>⏱️</span>
-                <h3>Tiempo</h3>
-                <p id="tiempo">00:00</p>
-            </div>
-
-            <div class="dato">
-                <span>⭐</span>
-                <h3>Parejas</h3>
-                <p id="parejas">0 / 12</p>
-            </div>
-
-            <div class="dato">
-                <span>🏆</span>
-                <h3>Récord</h3>
-                <p id="record">--:--</p>
-            </div>
-
-        </section>
-
-        <section class="estadistica-extra">
-
-            <div>
-                <span>💎 Puntuación</span>
-                <strong id="puntuacion">0</strong>
-            </div>
-
-            <div>
-                <span>🔥 Racha</span>
-                <strong id="racha">0</strong>
-            </div>
-
-            <div>
-                <span>🎯 Precisión</span>
-                <strong id="precision">100%</strong>
-            </div>
-
-        </section>
-
-        <section class="progreso-contenedor">
-
-            <div class="progreso-texto">
-                <span>Progreso del juego</span>
-                <span id="porcentaje">0%</span>
-            </div>
-
-            <div class="barra">
-                <div id="barra-progreso"></div>
-            </div>
-
-        </section>
+    <main class="menu-principal">
+        <header class="encabezado-menu">
+            <div class="logo-menu">🧠✨</div>
+            <h1>Memorama Mágico</h1>
+            <p>¡Aprende, juega y diviértete!</p>
+        </header>
 
         <section class="instrucciones">
-            <h3>📖 Instrucciones</h3>
-            <p>
-                1. Selecciona una tarjeta para descubrir su dibujo.
-                <br>
-                2. Selecciona otra tarjeta para buscar su pareja.
-                <br>
-                3. Si son iguales, ganas una pareja.
-                <br>
-                4. Encuentra todas para ganar el juego.
+            <h2>📖 ¿Cómo se juega?</h2>
+            <p id="texto-instrucciones">
+                Encuentra las parejas de cartas. Selecciona dos cartas para
+                descubrirlas. Si son iguales, conseguirás una pareja.
+                Si son diferentes, se voltearán nuevamente. Encuentra todas
+                las parejas para ganar.
             </p>
-        </section>
 
-        <div class="titulo-tablero">
-            <h2>✨ ¡Encuentra las parejas! ✨</h2>
-        </div>
+            <div class="botones-audio">
+                <button id="escuchar" class="btn-audio">
+                    🔊 Escuchar instrucciones
+                </button>
 
-        <div id="tablero" class="tablero"></div>
-
-        <div id="mensaje-turno" class="mensaje-turno">
-            Selecciona tu primera tarjeta.
-        </div>
-
-        <section class="controles">
-
-            <button id="pista" class="btn btn-pista">
-                💡 Pista
-            </button>
-
-            <button id="barajar" class="btn btn-barajar">
-                🔀 Barajar
-            </button>
-
-            <button id="pausar" class="btn btn-pausar">
-                ⏸️ Pausar
-            </button>
-
-            <button id="sonido" class="btn btn-sonido">
-                🔊 Sonido
-            </button>
-
-            <button id="tema" class="btn btn-tema">
-                🌙 Modo oscuro
-            </button>
-
-            <button id="reiniciar" class="btn btn-reiniciar">
-                🔄 Reiniciar
-            </button>
-
-        </section>
-
-        <p id="pistas-restantes">💡 Pistas disponibles: 3 </p>
-        </p>
-
-        <section id="resultado" class="resultado oculto">
-
-            <div class="trofeo">🏆</div>
-
-            <h2>¡FELICIDADES!</h2>
-
-            <p>¡Has completado el memorama!</p>
-
-            <div class="resumen">
-                <p>Movimientos: <strong id="total-movimientos">0</strong></p>
-                <p>Tiempo: <strong id="tiempo-final">00:00</strong></p>
-                <p>Puntuación: <strong id="puntuacion-final">0</strong></p>
-                <p>Precisión: <strong id="precision-final">0%</strong></p>
+                <button id="detener" class="btn-detener">
+                    ⏹ Detener audio
+                </button>
             </div>
-
-            <button id="jugar-otra-vez" class="btn btn-reiniciar">
-                🎉 Jugar nuevamente
-            </button>
-
+            <p id="estado-audio" aria-live="polite"></p>
         </section>
 
+        <section class="categorias-menu">
+            <h2>🎮 Elige una categoría</h2>
+            <p>Selecciona el tema que quieres jugar.</p>
+
+            <div class="categorias-grid">
+                <a class="categoria" href="juego.html?categoria=figuras">
+                    <span>🔺</span>
+                    <h3>Figuras geométricas</h3>
+                    <p>Aprende las formas y sus nombres.</p>
+                    <strong>Jugar ahora →</strong>
+                </a>
+
+                <a class="categoria" href="juego.html?categoria=animales">
+                    <span>🐼</span>
+                    <h3>Animales</h3>
+                    <p>Descubre diferentes animales.</p>
+                    <strong>Jugar ahora →</strong>
+                </a>
+
+                <a class="categoria" href="juego.html?categoria=colores">
+                    <span>🎨</span>
+                    <h3>Colores</h3>
+                    <p>Relaciona los colores con sus nombres.</p>
+                    <strong>Jugar ahora →</strong>
+                </a>
+
+                <a class="categoria" href="juego.html?categoria=frutas">
+                    <span>🍓</span>
+                    <h3>Frutas</h3>
+                    <p>Encuentra las parejas de frutas.</p>
+                    <strong>Jugar ahora →</strong>
+                </a>
+
+                <a class="categoria" href="juego.html?categoria=espacio">
+                    <span>🚀</span>
+                    <h3>Espacio</h3>
+                    <p>Explora planetas y el universo.</p>
+                    <strong>Jugar ahora →</strong>
+                </a>
+
+                <a class="categoria" href="juego.html?categoria=naturaleza">
+                    <span>🌳</span>
+                    <h3>Naturaleza</h3>
+                    <p>Descubre elementos naturales.</p>
+                    <strong>Jugar ahora →</strong>
+                </a>
+            </div>
+        </section>
+
+        <footer class="footer-menu">
+            <p>Memorama Mágico © 2026</p>
+            <p>¡Pon a prueba tu memoria!</p>
+        </footer>
     </main>
 
-    <footer>
-        <h3>🧠 MEMORAMA MÁGICO</h3>
-        <p>Desarrollado para estimular la memoria y concentración.</p>
-        <p>Proyecto escolar de programación © 2026</p>
-    </footer>
-
-    <script src="script.js"></script>
-
+    <script src="menu.js"></script>
 </body>
 </html>

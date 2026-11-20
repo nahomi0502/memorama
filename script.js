@@ -1,7 +1,7 @@
-/* =========================================
+/* ==========================================
    MEMORAMA MAGICO
-   FIGURAS GEOMETRICAS Y SUS NOMBRES
-========================================= */
+   SEIS CATEGORIAS Y TRES DIFICULTADES
+========================================== */
 
 // ELEMENTOS HTML
 
@@ -12,93 +12,217 @@ const movimientosTexto = document.getElementById("movimientos");
 const tiempoTexto = document.getElementById("tiempo");
 const parejasTexto = document.getElementById("parejas");
 const recordTexto = document.getElementById("record");
+
 const puntuacionTexto = document.getElementById("puntuacion");
 const rachaTexto = document.getElementById("racha");
 const precisionTexto = document.getElementById("precision");
 
 const barraProgreso = document.getElementById("barra-progreso");
 const porcentajeTexto = document.getElementById("porcentaje");
-const mensajeTurno = document.getElementById("mensaje-turno");
 
-const botonPista = document.getElementById("pista");
-const botonBarajar = document.getElementById("barajar");
-const botonPausar = document.getElementById("pausar");
-const botonSonido = document.getElementById("sonido");
-const botonTema = document.getElementById("tema");
-const botonReiniciar = document.getElementById("reiniciar");
-const botonOtraPartida = document.getElementById("jugar-otra-vez");
+const mensajeTurno = document.getElementById("mensaje-turno");
+const pistasTexto = document.getElementById("pistas-restantes");
 
 const resultado = document.getElementById("resultado");
-const textoPistas = document.getElementById("pistas-restantes");
 
-// FIGURAS GEOMETRICAS
+const btnPista = document.getElementById("pista");
+const btnBarajar = document.getElementById("barajar");
+const btnPausar = document.getElementById("pausar");
+const btnSonido = document.getElementById("sonido");
+const btnTema = document.getElementById("tema");
+const btnReiniciar = document.getElementById("reiniciar");
+const btnOtraVez = document.getElementById("jugar-otra-vez");
 
-const figuras = [
-    { id: 1, nombre: "CÍRCULO", dibujo: "🔴", color: "#ef4444" },
-    { id: 2, nombre: "TRIÁNGULO", dibujo: "♦", color: "#f97316" },
-    { id: 3, nombre: "CUADRADO", dibujo: "🟦", color: "#2563eb" },
-    { id: 4, nombre: "RECTÁNGULO", dibujo: "▬", color: "#16a34a" },
-    { id: 5, nombre: "ROMBO", dibujo: "🔶", color: "#9333ea" },
-    { id: 6, nombre: "ESTRELLA", dibujo: "★", color: "#eab308" },
-    { id: 7, nombre: "CORAZÓN", dibujo: "🩷", color: "#ec4899" },
-    { id: 8, nombre: "ÓVALO", dibujo: "⬭", color: "#0891b2" },
-    { id: 9, nombre: "PENTÁGONO", dibujo: "⬠", color: "#7c3aed" },
-    { id: 10, nombre: "HEXÁGONO", dibujo: "⬡", color: "#0d9488" },
-    { id: 11, nombre: "CRUZ", dibujo: "✚", color: "#dc2626" },
-    { id: 12, nombre: "LUNA", dibujo: "☾", color: "#6366f1" },
-    { id: 13, nombre: "FLECHA", dibujo: "➤", color: "#ea580c" },
-    { id: 14, nombre: "TRAPECIO", dibujo: "⏢", color: "#059669" },
-    { id: 15, nombre: "PARALELOGRAMO", dibujo: "▱", color: "#7c3aed" },
-    { id: 16, nombre: "CILINDRO", dibujo: "🛢️", color: "#0284c7" },
-    { id: 17, nombre: "OCTAGONO", dibujo: "🛑", color: "#be123c" },
-    { id: 18, nombre: "DIAMANTE", dibujo: "💎", color: "#0891b2" }
-];
+// CATEGORIA SELECCIONADA
+
+const parametros = new URLSearchParams(window.location.search);
+
+let categoriaActual = parametros.get("categoria") || "figuras";
+
+const nombresCategorias = {
+    figuras: "Figuras geométricas",
+    animales: "Animales",
+    colores: "Colores",
+    frutas: "Frutas",
+    espacio: "Espacio",
+    naturaleza: "Naturaleza"
+};
+
+// DATOS DE LAS SEIS CATEGORIAS
+
+const categorias = {
+
+    figuras: [
+        ["🔺", "Triángulo"],
+        ["🟦", "Cuadrado"],
+        ["⚪", "Círculo"],
+        ["🔶", "Rombo"],
+        ["⭐", "Estrella"],
+        ["⬡", "Hexágono"],
+        ["❤️", "Corazón"],
+        ["🟩", "Rectángulo"],
+        ["🌙", "Luna"],
+        ["🔻", "Triángulo invertido"],
+        ["🟣", "Óvalo"],
+        ["💠", "Diamante"],
+        ["🔷", "Paralelogramo"],
+        ["⬟", "Pentágono"],
+        ["🛑", "Octágono"],
+        ["🟠", "Elipse"],
+        ["✳️", "Estrella de ocho puntas"],
+        ["➕", "Cruz"]
+    ],
+
+    animales: [
+        ["🐶", "Perro"],
+        ["🐱", "Gato"],
+        ["🐼", "Panda"],
+        ["🦁", "León"],
+        ["🐸", "Rana"],
+        ["🐵", "Mono"],
+        ["🐰", "Conejo"],
+        ["🦊", "Zorro"],
+        ["🐘", "Elefante"],
+        ["🦒", "Jirafa"],
+        ["🐢", "Tortuga"],
+        ["🐬", "Delfín"],
+        ["🦋", "Mariposa"],
+        ["🐧", "Pingüino"],
+        ["🐴", "Caballo"],
+        ["🦉", "Búho"],
+        ["🐨", "Koala"],
+        ["🐳", "Ballena"]
+    ],
+
+    colores: [
+        ["🔴", "Rojo"],
+        ["🔵", "Azul"],
+        ["🟡", "Amarillo"],
+        ["🟢", "Verde"],
+        ["🟣", "Morado"],
+        ["🟠", "Naranja"],
+        ["⚫", "Negro"],
+        ["⚪", "Blanco"],
+        ["🩷", "Rosa"],
+        ["🟤", "Café"],
+        ["🩵", "Celeste"],
+        ["🩶", "Gris"],
+        ["💚", "Verde claro"],
+        ["💙", "Azul marino"],
+        ["❤️", "Rojo intenso"],
+        ["💜", "Violeta"],
+        ["💛", "Dorado"],
+        ["🤍", "Marfil"]
+    ],
+
+    frutas: [
+        ["🍎", "Manzana"],
+        ["🍌", "Plátano"],
+        ["🍓", "Fresa"],
+        ["🍇", "Uvas"],
+        ["🍉", "Sandía"],
+        ["🍍", "Piña"],
+        ["🍊", "Naranja"],
+        ["🍒", "Cereza"],
+        ["🥝", "Kiwi"],
+        ["🥭", "Mango"],
+        ["🍑", "Durazno"],
+        ["🍐", "Pera"],
+        ["🥥", "Coco"],
+        ["🍋", "Limón"],
+        ["🫐", "Arándano"],
+        ["🍈", "Melón"],
+        ["🍏", "Manzana verde"],
+        ["🍅", "Tomate"]
+    ],
+
+    espacio: [
+        ["🌎", "Tierra"],
+        ["🌙", "Luna"],
+        ["☀️", "Sol"],
+        ["🪐", "Saturno"],
+        ["🚀", "Cohete"],
+        ["⭐", "Estrella"],
+        ["☄️", "Cometa"],
+        ["🌌", "Galaxia"],
+        ["👨‍🚀", "Astronauta"],
+        ["🛸", "Platillo volador"],
+        ["🌑", "Luna nueva"],
+        ["🌕", "Luna llena"],
+        ["🌠", "Estrella fugaz"],
+        ["🔭", "Telescopio"],
+        ["🛰️", "Satélite"],
+        ["🌟", "Estrella brillante"],
+        ["🌞", "Sol brillante"],
+        ["🌍", "Planeta azul"]
+    ],
+
+    naturaleza: [
+        ["🌸", "Flor"],
+        ["🌳", "Árbol"],
+        ["🌻", "Girasol"],
+        ["🌵", "Cactus"],
+        ["🍀", "Trébol"],
+        ["🌈", "Arcoíris"],
+        ["🌊", "Ola"],
+        ["🍄", "Hongo"],
+        ["🌴", "Palmera"],
+        ["🌷", "Tulipán"],
+        ["🌿", "Planta"],
+        ["🌲", "Pino"],
+        ["🌺", "Hibisco"],
+        ["🌼", "Margarita"],
+        ["☁️", "Nube"],
+        ["🔥", "Fuego"],
+        ["💧", "Gota de agua"],
+        ["🪨", "Roca"]
+    ]
+
+};
 
 // VARIABLES DEL JUEGO
 
+let tarjetas = [];
 let seleccionadas = [];
-let cartasCorrectas = 0;
+
 let movimientos = 0;
+let parejas = 0;
+let segundos = 0;
 let puntuacion = 0;
 let racha = 0;
-let segundos = 0;
 
 let pistas = 3;
-let mezclas = 3;
-let totalParejas = 8;
+let totalParejas = 12;
 
 let bloqueo = false;
 let pausado = false;
 let sonidoActivo = true;
-let juegoTerminado = false;
+let iniciado = false;
+let terminado = false;
 
 let intervalo = null;
+let tiempoBloqueo = null;
+let contextoAudio = null;
 
-// NUEVA VARIABLE DEL CRONOMETRO
+// UTILIDADES
 
-let tiempoIniciado = false;
+function formatoTiempo(valor) {
+    const minutos = Math.floor(valor / 60);
+    const segundosRestantes = valor % 60;
 
-
-// ACTUALIZAR CONTADOR DE PISTAS
-
-function actualizarPistas() {
-    if (textoPistas) {
-        textoPistas.textContent =
-            `💡 Pistas disponibles: ${pistas}`;
-    }
-
-    if (botonPista) {
-        botonPista.disabled = pistas <= 0;
-    }
+    return (
+        String(minutos).padStart(2, "0") +
+        ":" +
+        String(segundosRestantes).padStart(2, "0")
+    );
 }
-
-// MEZCLAR ARREGLOS
 
 function mezclar(array) {
     const copia = [...array];
 
     for (let i = copia.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
+
         [copia[i], copia[j]] = [copia[j], copia[i]];
     }
 
@@ -110,496 +234,393 @@ function mezclar(array) {
 function reproducirSonido(frecuencia = 500) {
     if (!sonidoActivo) return;
 
-    const AudioContext =
-        window.AudioContext || window.webkitAudioContext;
+    try {
+        const AudioContext =
+            window.AudioContext || window.webkitAudioContext;
 
-    if (!AudioContext) return;
+        if (!AudioContext) return;
 
-    const audio = new AudioContext();
-    const oscilador = audio.createOscillator();
-    const volumen = audio.createGain();
-
-    oscilador.connect(volumen);
-    volumen.connect(audio.destination);
-
-    oscilador.frequency.value = frecuencia;
-    volumen.gain.value = 0.08;
-
-    oscilador.start();
-
-    volumen.gain.exponentialRampToValueAtTime(
-        0.001,
-        audio.currentTime + 0.2
-    );
-
-    oscilador.stop(audio.currentTime + 0.2);
-}
-
-// CREAR CARTA
-
-function crearCarta(figura, tipo) {
-    const tarjeta = document.createElement("button");
-
-    tarjeta.type = "button";
-    tarjeta.className = "tarjeta";
-
-    tarjeta.dataset.figura = figura.id;
-    tarjeta.dataset.tipo = tipo;
-
-    const contenido = document.createElement("div");
-    contenido.className = "tarjeta-interior";
-
-    const reverso = document.createElement("div");
-    reverso.className = "cara reverso";
-    reverso.textContent = "?";
-
-    const frente = document.createElement("div");
-    frente.className = "cara frente";
-
-    if (tipo === "figura") {
-        const dibujo = document.createElement("span");
-
-        dibujo.className = "figura-icono";
-        dibujo.textContent = figura.dibujo;
-        dibujo.style.color = figura.color;
-
-        frente.appendChild(dibujo);
-    } else {
-        const nombre = document.createElement("span");
-
-        nombre.className = "figura-nombre";
-        nombre.textContent = figura.nombre;
-
-        frente.appendChild(nombre);
-    }
-
-    contenido.appendChild(reverso);
-    contenido.appendChild(frente);
-    tarjeta.appendChild(contenido);
-
-    tarjeta.addEventListener("click", () => {
-        seleccionarCarta(tarjeta);
-    });
-
-    return tarjeta;
-}
-
-// CREAR TABLERO
-
-function crearTablero() {
-    tablero.innerHTML = "";
-
-    seleccionadas = [];
-    bloqueo = false;
-    juegoTerminado = false;
-
-    totalParejas = Number(dificultad.value);
-
-    if (![8, 12, 18].includes(totalParejas)) {
-        totalParejas = 8;
-    }
-
-    const columnas =
-        totalParejas === 8 ? 4 :
-        totalParejas === 12 ? 5 : 6;
-
-    tablero.style.setProperty("--columnas", columnas);
-
-    const seleccionFiguras = mezclar(figuras).slice(0, totalParejas);
-
-    let cartas = [];
-
-    seleccionFiguras.forEach(figura => {
-        cartas.push({ figura, tipo: "figura" });
-        cartas.push({ figura, tipo: "nombre" });
-    });
-
-    cartas = mezclar(cartas);
-
-    cartas.forEach(carta => {
-        tablero.appendChild(
-            crearCarta(carta.figura, carta.tipo)
-        );
-    });
-
-    actualizarEstadisticas();
-    actualizarProgreso();
-    actualizarPistas();
-
-    mensajeTurno.textContent =
-        "¡Encuentra cada figura con su nombre!";
-
-    resultado.style.display = "none";
-}
-
-// SELECCIONAR CARTA
-
-function seleccionarCarta(tarjeta) {
-    if (
-        bloqueo ||
-        pausado ||
-        juegoTerminado ||
-        tarjeta.classList.contains("volteada") ||
-        tarjeta.classList.contains("correcta")
-    ) {
-        return;
-    }
-
-    // INICIAR CRONOMETRO AL PRESIONAR LA PRIMERA CARTA
-
-    iniciarTiempo();
-
-    tarjeta.classList.add("volteada");
-    tarjeta.disabled = true;
-
-    seleccionadas.push(tarjeta);
-
-    reproducirSonido(550);
-
-    if (seleccionadas.length === 2) {
-        movimientos++;
-        comprobarPareja();
-    }
-}
-
-// COMPROBAR PAREJA
-
-function comprobarPareja() {
-    bloqueo = true;
-
-    const [primera, segunda] = seleccionadas;
-
-    const mismaFigura =
-        primera.dataset.figura === segunda.dataset.figura;
-
-    const tiposDiferentes =
-        primera.dataset.tipo !== segunda.dataset.tipo;
-
-    if (mismaFigura && tiposDiferentes) {
-        primera.classList.add("correcta");
-        segunda.classList.add("correcta");
-
-        cartasCorrectas++;
-        racha++;
-
-        puntuacion += 100 + (racha * 10);
-
-        mensajeTurno.textContent =
-            "¡Excelente! Encontraste la pareja.";
-
-        reproducirSonido(850);
-
-        seleccionadas = [];
-        bloqueo = false;
-
-        actualizarEstadisticas();
-        actualizarProgreso();
-
-        if (cartasCorrectas === totalParejas) {
-            finalizarJuego();
+        if (!contextoAudio) {
+            contextoAudio = new AudioContext();
         }
 
-    } else {
-        racha = 0;
-        puntuacion = Math.max(0, puntuacion - 10);
+        if (contextoAudio.state === "suspended") {
+            contextoAudio.resume();
+        }
 
-        mensajeTurno.textContent =
-            "No coinciden. ¡Inténtalo otra vez!";
+        const oscilador = contextoAudio.createOscillator();
+        const volumen = contextoAudio.createGain();
 
-        reproducirSonido(250);
+        oscilador.type = "sine";
+        oscilador.frequency.value = frecuencia;
 
-        setTimeout(() => {
-            primera.classList.remove("volteada");
-            segunda.classList.remove("volteada");
+        volumen.gain.setValueAtTime(
+            0.08,
+            contextoAudio.currentTime
+        );
 
-            primera.disabled = false;
-            segunda.disabled = false;
+        volumen.gain.exponentialRampToValueAtTime(
+            0.001,
+            contextoAudio.currentTime + 0.18
+        );
 
-            seleccionadas = [];
-            bloqueo = false;
+        oscilador.connect(volumen);
+        volumen.connect(contextoAudio.destination);
 
-            actualizarEstadisticas();
-        }, 1000);
+        oscilador.start();
+        oscilador.stop(contextoAudio.currentTime + 0.18);
 
-        actualizarEstadisticas();
+    } catch (error) {
+        console.log("El sonido no está disponible.");
     }
 }
 
-// ESTADISTICAS
+// CRONOMETRO
+
+function iniciarCronometro() {
+    if (intervalo || terminado || pausado) return;
+
+    intervalo = setInterval(() => {
+        segundos++;
+
+        tiempoTexto.textContent = formatoTiempo(segundos);
+
+    }, 1000);
+}
+
+function detenerCronometro() {
+    clearInterval(intervalo);
+    intervalo = null;
+}
+
+// RECORD POR CATEGORIA Y DIFICULTAD
+
+function claveRecord() {
+    return `record_${categoriaActual}_${totalParejas}`;
+}
+
+function obtenerRecord() {
+    try {
+        const record = localStorage.getItem(claveRecord());
+
+        if (record === null) {
+            return null;
+        }
+
+        return Number(record);
+
+    } catch (error) {
+        return null;
+    }
+}
+
+function actualizarRecord() {
+    const record = obtenerRecord();
+
+    recordTexto.textContent =
+        record === null ? "--:--" : formatoTiempo(record);
+}
+
+function guardarRecord() {
+    const record = obtenerRecord();
+
+    if (record === null || segundos < record) {
+        try {
+            localStorage.setItem(claveRecord(), segundos);
+        } catch (error) {
+            console.log("No se pudo guardar el récord.");
+        }
+    }
+
+    actualizarRecord();
+}
+
+// ACTUALIZAR ESTADISTICAS
 
 function actualizarEstadisticas() {
     movimientosTexto.textContent = movimientos;
 
     parejasTexto.textContent =
-        `${cartasCorrectas}/${totalParejas}`;
+        parejas + " / " + totalParejas;
 
     puntuacionTexto.textContent = puntuacion;
+
     rachaTexto.textContent = racha;
 
-    const precision = movimientos === 0
-        ? 100
-        : Math.round((cartasCorrectas / movimientos) * 100);
+    const precision =
+        movimientos === 0
+            ? 100
+            : Math.round((parejas / movimientos) * 100);
 
-    precisionTexto.textContent = precision + "%";
-}
+    precisionTexto.textContent =
+        Math.min(100, precision) + "%";
 
-// PROGRESO
+    const porcentaje =
+        Math.round((parejas / totalParejas) * 100);
 
-function actualizarProgreso() {
-    const porcentaje = Math.round(
-        (cartasCorrectas / totalParejas) * 100
-    );
+    porcentajeTexto.textContent = porcentaje + "%";
 
     barraProgreso.style.width = porcentaje + "%";
-    porcentajeTexto.textContent = porcentaje + "%";
+
+    tiempoTexto.textContent = formatoTiempo(segundos);
+
+    pistasTexto.textContent =
+        "💡 Pistas disponibles: " + pistas;
 }
 
-// CRONOMETRO MODIFICADO
+// CREAR TARJETAS
 
-function iniciarTiempo() {
+function crearTarjeta(dato, tipo, id) {
 
-    // EVITAR QUE EL TIEMPO INICIE ANTES DE LA PRIMERA CARTA
+    const tarjeta = document.createElement("button");
 
-    if (tiempoIniciado || pausado || juegoTerminado) {
-        return;
-    }
+    tarjeta.type = "button";
+    tarjeta.className = "tarjeta";
 
-    tiempoIniciado = true;
+    tarjeta.dataset.pareja = id;
+    tarjeta.dataset.tipo = tipo;
 
-    clearInterval(intervalo);
+    tarjeta.setAttribute(
+        "aria-label",
+        "Tarjeta oculta"
+    );
 
-    intervalo = setInterval(() => {
+    let contenido = "";
 
-        if (!pausado && !juegoTerminado) {
-            segundos++;
-            actualizarTiempo();
+    if (tipo === "visual") {
+
+        if (categoriaActual === "colores") {
+
+            const coloresCSS = {
+                "Rojo": "#ef4444",
+                "Azul": "#2563eb",
+                "Amarillo": "#facc15",
+                "Verde": "#16a34a",
+                "Morado": "#9333ea",
+                "Naranja": "#f97316",
+                "Negro": "#111827",
+                "Blanco": "#ffffff",
+                "Rosa": "#ec4899",
+                "Café": "#78350f",
+                "Celeste": "#38bdf8",
+                "Gris": "#9ca3af",
+                "Verde claro": "#86efac",
+                "Azul marino": "#1e3a8a",
+                "Rojo intenso": "#dc2626",
+                "Violeta": "#7c3aed",
+                "Dorado": "#eab308",
+                "Marfil": "#ffffe0"
+            };
+
+            contenido = `
+                <span class="muestra-color"
+                style="background:${coloresCSS[dato[1]]}">
+                </span>
+            `;
+
+        } else {
+
+            contenido = `
+                <span class="visual-tarjeta">${dato[0]}</span>
+            `;
         }
 
-    }, 1000);
-}
+    } else {
 
-function actualizarTiempo() {
-    const minutos = Math.floor(segundos / 60);
-    const resto = segundos % 60;
-
-    tiempoTexto.textContent =
-        String(minutos).padStart(2, "0") + ":" +
-        String(resto).padStart(2, "0");
-}
-
-// UTILIZAR PISTA
-
-function usarPista() {
-    if (
-        pistas <= 0 ||
-        pausado ||
-        bloqueo ||
-        juegoTerminado ||
-        seleccionadas.length > 0
-    ) {
-        return;
+        contenido = `
+            <span class="nombre-tarjeta">${dato[1]}</span>
+        `;
     }
 
-    const cartas = [...tablero.children];
-    const parejasDisponibles = [];
+    tarjeta.innerHTML = `
+        <div class="tarjeta-interior">
 
-    for (let i = 0; i < cartas.length; i++) {
-        for (let j = i + 1; j < cartas.length; j++) {
-            const a = cartas[i];
-            const b = cartas[j];
+            <div class="cara-frontal">
+                ?
+            </div>
 
-            if (
-                a.dataset.figura === b.dataset.figura &&
-                a.dataset.tipo !== b.dataset.tipo &&
-                !a.classList.contains("correcta") &&
-                !b.classList.contains("correcta")
-            ) {
-                parejasDisponibles.push([a, b]);
-            }
-        }
-    }
+            <div class="cara-trasera">
+                ${contenido}
+            </div>
 
-    if (parejasDisponibles.length === 0) return;
+        </div>
+    `;
 
-    const pareja = parejasDisponibles[
-        Math.floor(Math.random() * parejasDisponibles.length)
-    ];
-
-    // RESTAR UNA PISTA Y ACTUALIZAR EL TEXTO
-
-    pistas--;
-    actualizarPistas();
-
-    bloqueo = true;
-
-    pareja.forEach(carta => {
-        carta.classList.add("volteada");
-        carta.disabled = true;
+    tarjeta.addEventListener("click", () => {
+        seleccionarTarjeta(tarjeta);
     });
 
-    mensajeTurno.textContent = "¡Observa esta pareja!";
+    return tarjeta;
+}
 
-    setTimeout(() => {
-        pareja.forEach(carta => {
-            carta.classList.remove("volteada");
-            carta.disabled = false;
+// GENERAR TABLERO
+
+function generarTablero() {
+
+    tablero.innerHTML = "";
+
+    const datos = categorias[categoriaActual] || categorias.figuras;
+
+    const seleccion = mezclar(datos).slice(0, totalParejas);
+
+    let mazo = [];
+
+    seleccion.forEach((dato, indice) => {
+
+        mazo.push({
+            dato: dato,
+            tipo: "visual",
+            id: indice
         });
 
-        bloqueo = false;
+        mazo.push({
+            dato: dato,
+            tipo: "nombre",
+            id: indice
+        });
 
-        mensajeTurno.textContent =
-            pistas > 0
-                ? "¡Sigue buscando las parejas!"
-                : "¡Ya no tienes pistas disponibles!";
-    }, 1300);
+    });
+
+    mazo = mezclar(mazo);
+
+    mazo.forEach(elemento => {
+
+        const tarjeta = crearTarjeta(
+            elemento.dato,
+            elemento.tipo,
+            elemento.id
+        );
+
+        tablero.appendChild(tarjeta);
+
+    });
+
 }
 
-// BARAJAR CARTAS
+// SELECCIONAR TARJETAS
 
-function barajarCartas() {
+function seleccionarTarjeta(tarjeta) {
+
     if (
-        mezclas <= 0 ||
         bloqueo ||
         pausado ||
-        juegoTerminado ||
-        seleccionadas.length > 0
+        terminado ||
+        tarjeta.classList.contains("volteada") ||
+        tarjeta.classList.contains("encontrada")
     ) {
-        mensajeTurno.textContent = "No puedes mezclar ahora.";
         return;
     }
 
-    mezclas--;
+    if (!iniciado) {
+        iniciado = true;
+        iniciarCronometro();
+    }
 
-    const cartas = [...tablero.children];
+    tarjeta.classList.add("volteada");
 
-    const disponibles = cartas.filter(
-        carta => !carta.classList.contains("correcta")
+    tarjeta.setAttribute(
+        "aria-label",
+        "Tarjeta descubierta"
     );
 
-    const datos = mezclar(
-        disponibles.map(carta => ({
-            figura: carta.dataset.figura,
-            tipo: carta.dataset.tipo
-        }))
-    );
+    reproducirSonido(550);
 
-    disponibles.forEach((carta, indice) => {
-        carta.dataset.figura = datos[indice].figura;
-        carta.dataset.tipo = datos[indice].tipo;
+    seleccionadas.push(tarjeta);
 
-        carta.classList.remove("volteada");
-        carta.disabled = false;
+    if (seleccionadas.length === 2) {
 
-        const figura = figuras.find(
-            f => String(f.id) === datos[indice].figura
-        );
+        movimientos++;
 
-        const frente = carta.querySelector(".frente");
-        frente.innerHTML = "";
+        bloqueo = true;
 
-        if (datos[indice].tipo === "figura") {
-            const dibujo = document.createElement("span");
+        comprobarPareja();
+    }
 
-            dibujo.className = "figura-icono";
-            dibujo.textContent = figura.dibujo;
-            dibujo.style.color = figura.color;
+    actualizarEstadisticas();
+}
 
-            frente.appendChild(dibujo);
-        } else {
-            const nombre = document.createElement("span");
+// COMPROBAR PAREJAS
 
-            nombre.className = "figura-nombre";
-            nombre.textContent = figura.nombre;
+function comprobarPareja() {
 
-            frente.appendChild(nombre);
+    const primera = seleccionadas[0];
+    const segunda = seleccionadas[1];
+
+    if (primera.dataset.pareja === segunda.dataset.pareja) {
+
+        primera.classList.add("encontrada");
+        segunda.classList.add("encontrada");
+
+        primera.disabled = true;
+        segunda.disabled = true;
+
+        parejas++;
+        racha++;
+
+        puntuacion += 100 + (racha * 10);
+
+        mensajeTurno.textContent =
+            "🎉 ¡Excelente! Encontraste una pareja.";
+
+        reproducirSonido(800);
+
+        seleccionadas = [];
+        bloqueo = false;
+
+        actualizarEstadisticas();
+
+        if (parejas === totalParejas) {
+            finalizarJuego();
         }
-    });
 
-    cartas.forEach(carta => tablero.appendChild(carta));
+    } else {
 
-    mensajeTurno.textContent = "¡Cartas mezcladas!";
-}
+        racha = 0;
 
-// PAUSAR JUEGO
+        puntuacion = Math.max(0, puntuacion - 10);
 
-function pausarJuego() {
-    if (juegoTerminado || !tiempoIniciado) return;
+        mensajeTurno.textContent =
+            "❌ No coinciden. ¡Inténtalo otra vez!";
 
-    pausado = !pausado;
+        actualizarEstadisticas();
 
-    botonPausar.textContent =
-        pausado ? "Continuar" : "Pausar";
+        tiempoBloqueo = setTimeout(() => {
 
-    tablero.style.pointerEvents =
-        pausado ? "none" : "auto";
+            if (pausado) {
+                return;
+            }
 
-    mensajeTurno.textContent =
-        pausado ? "Juego pausado" : "¡Continúa jugando!";
-}
+            primera.classList.remove("volteada");
+            segunda.classList.remove("volteada");
 
-// SONIDO
+            primera.setAttribute("aria-label", "Tarjeta oculta");
+            segunda.setAttribute("aria-label", "Tarjeta oculta");
 
-function cambiarSonido() {
-    sonidoActivo = !sonidoActivo;
+            seleccionadas = [];
+            bloqueo = false;
 
-    botonSonido.textContent =
-        sonidoActivo ? "Sonido: ON" : "Sonido: OFF";
+            mensajeTurno.textContent =
+                "Selecciona tu siguiente pareja.";
 
-    if (sonidoActivo) reproducirSonido(600);
-}
-
-// MODO OSCURO
-
-function cambiarTema() {
-    document.body.classList.toggle("tema-oscuro");
-
-    const oscuro =
-        document.body.classList.contains("tema-oscuro");
-
-    botonTema.textContent =
-        oscuro ? "Modo claro" : "Modo oscuro";
-
-    localStorage.setItem(
-        "temaMemorama",
-        oscuro ? "oscuro" : "claro"
-    );
-}
-
-function cargarTema() {
-    const oscuro =
-        localStorage.getItem("temaMemorama") === "oscuro";
-
-    document.body.classList.toggle("tema-oscuro", oscuro);
-
-    botonTema.textContent =
-        oscuro ? "Modo claro" : "Modo oscuro";
+        }, 900);
+    }
 }
 
 // FINALIZAR JUEGO
 
 function finalizarJuego() {
-    juegoTerminado = true;
-    clearInterval(intervalo);
 
-    mensajeTurno.textContent =
-        "¡Felicidades! Completaste el memorama.";
+    terminado = true;
 
-    const recordAnterior = Number(
-        localStorage.getItem("recordMemorama") || 0
-    );
+    detenerCronometro();
 
-    if (puntuacion > recordAnterior) {
-        localStorage.setItem("recordMemorama", puntuacion);
-    }
-
-    recordTexto.textContent =
-        Math.max(recordAnterior, puntuacion);
+    guardarRecord();
 
     document.getElementById("total-movimientos").textContent =
         movimientos;
 
     document.getElementById("tiempo-final").textContent =
-        tiempoTexto.textContent;
+        formatoTiempo(segundos);
 
     document.getElementById("puntuacion-final").textContent =
         puntuacion;
@@ -607,71 +628,231 @@ function finalizarJuego() {
     document.getElementById("precision-final").textContent =
         precisionTexto.textContent;
 
-    resultado.style.display = "block";
+    mensajeTurno.textContent =
+        "🏆 ¡Has encontrado todas las parejas!";
 
-    reproducirSonido(1000);
+    resultado.classList.remove("oculto");
+
+    resultado.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+    reproducirSonido(950);
 }
 
-// REINICIAR JUEGO
+// PISTAS
+
+function usarPista() {
+
+    if (pausado || terminado || bloqueo || pistas <= 0) {
+        return;
+    }
+
+    const disponibles = [...tablero.querySelectorAll(".tarjeta")]
+        .filter(t =>
+            !t.classList.contains("encontrada") &&
+            !t.classList.contains("volteada")
+        );
+
+    const primera = disponibles[0];
+
+    if (!primera) return;
+
+    const parejaDisponible = disponibles.find(t =>
+        t.dataset.pareja === primera.dataset.pareja &&
+        t !== primera
+    );
+
+    if (!parejaDisponible) return;
+
+    pistas--;
+
+    puntuacion = Math.max(0, puntuacion - 25);
+
+    bloqueo = true;
+
+    primera.classList.add("volteada");
+    parejaDisponible.classList.add("volteada");
+
+    mensajeTurno.textContent =
+        "💡 ¡Aquí está una pareja!";
+
+    actualizarEstadisticas();
+
+    reproducirSonido(700);
+
+    tiempoBloqueo = setTimeout(() => {
+
+        if (pausado) return;
+
+        primera.classList.remove("volteada");
+        parejaDisponible.classList.remove("volteada");
+
+        seleccionadas = [];
+        bloqueo = false;
+
+        mensajeTurno.textContent =
+            "Continúa buscando las parejas.";
+
+    }, 1200);
+}
+
+// PAUSAR Y CONTINUAR
+
+function cambiarPausa() {
+
+    if (terminado) return;
+
+    pausado = !pausado;
+
+    if (pausado) {
+
+        detenerCronometro();
+
+        btnPausar.textContent = "▶️ Continuar";
+
+        mensajeTurno.textContent =
+            "⏸️ Juego pausado.";
+
+        tablero.querySelectorAll(".tarjeta").forEach(t => {
+            t.style.pointerEvents = "none";
+        });
+
+    } else {
+
+        if (iniciado) iniciarCronometro();
+
+        btnPausar.textContent = "⏸️ Pausar";
+
+        mensajeTurno.textContent =
+            "¡Continúa jugando!";
+
+        tablero.querySelectorAll(".tarjeta").forEach(t => {
+            t.style.pointerEvents = "";
+        });
+
+        if (tiempoBloqueo) {
+            clearTimeout(tiempoBloqueo);
+            tiempoBloqueo = null;
+
+            seleccionadas.forEach(t => {
+                t.classList.remove("volteada");
+            });
+
+            seleccionadas = [];
+            bloqueo = false;
+        }
+    }
+}
+
+// SONIDO
+
+function cambiarSonido() {
+
+    sonidoActivo = !sonidoActivo;
+
+    btnSonido.textContent = sonidoActivo
+        ? "🔊 Sonido"
+        : "🔇 Sonido apagado";
+
+    if (sonidoActivo) reproducirSonido(600);
+}
+
+// MODO OSCURO
+
+function cambiarTema() {
+
+    document.body.classList.toggle("tema-oscuro");
+
+    const oscuro = document.body.classList.contains("tema-oscuro");
+
+    btnTema.textContent = oscuro
+        ? "☀️ Modo claro"
+        : "🌙 Modo oscuro";
+}
+
+// REINICIAR PARTIDA
 
 function reiniciarJuego() {
-    clearInterval(intervalo);
+
+    detenerCronometro();
+
+    clearTimeout(tiempoBloqueo);
+    tiempoBloqueo = null;
 
     movimientos = 0;
-    cartasCorrectas = 0;
+    parejas = 0;
+    segundos = 0;
     puntuacion = 0;
     racha = 0;
-    segundos = 0;
-
-    // VOLVER A ESPERAR LA PRIMERA CARTA
-
-    tiempoIniciado = false;
 
     pistas = 3;
-    mezclas = 3;
 
-    pausado = false;
-    bloqueo = false;
-    juegoTerminado = false;
     seleccionadas = [];
 
-    botonPausar.textContent = "Pausar";
+    bloqueo = false;
+    pausado = false;
+    iniciado = false;
+    terminado = false;
 
-    tablero.style.pointerEvents = "auto";
+    btnPausar.textContent = "⏸️ Pausar";
 
-    actualizarTiempo();
-    actualizarPistas();
+    resultado.classList.add("oculto");
 
-    recordTexto.textContent =
-        localStorage.getItem("recordMemorama") || 0;
+    mensajeTurno.textContent =
+        "Selecciona tu primera tarjeta.";
 
-    crearTablero();
+    actualizarRecord();
 
-    // NO INICIAR EL CRONOMETRO AQUI
+    generarTablero();
+
+    actualizarEstadisticas();
 }
 
-// EVENTOS DE LOS BOTONES
+// EVENTOS DE BOTONES
 
-botonPista.addEventListener("click", usarPista);
-botonBarajar.addEventListener("click", barajarCartas);
-botonPausar.addEventListener("click", pausarJuego);
-botonSonido.addEventListener("click", cambiarSonido);
-botonTema.addEventListener("click", cambiarTema);
-botonReiniciar.addEventListener("click", reiniciarJuego);
-botonOtraPartida.addEventListener("click", reiniciarJuego);
+btnPista.addEventListener("click", usarPista);
 
-dificultad.addEventListener("change", reiniciarJuego);
+btnBarajar.addEventListener("click", reiniciarJuego);
 
-// INICIAR JUEGO
+btnPausar.addEventListener("click", cambiarPausa);
 
-cargarTema();
+btnSonido.addEventListener("click", cambiarSonido);
 
-recordTexto.textContent =
-    localStorage.getItem("recordMemorama") || 0;
+btnTema.addEventListener("click", cambiarTema);
 
-actualizarTiempo();
-actualizarPistas();
+btnReiniciar.addEventListener("click", reiniciarJuego);
 
-crearTablero();
+btnOtraVez.addEventListener("click", reiniciarJuego);
 
-// EL CRONOMETRO PERMANECE DETENIDO HASTA LA PRIMERA CARTA
+// CAMBIAR DIFICULTAD
+
+dificultad.addEventListener("change", () => {
+
+    totalParejas = Number(dificultad.value);
+
+    reiniciarJuego();
+
+});
+
+// INICIAR EL JUEGO
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    totalParejas = Number(dificultad.value);
+
+    const titulo = document.getElementById("nombre-categoria");
+
+    if (titulo) {
+        titulo.textContent =
+            "✨ " + (nombresCategorias[categoriaActual] || nombresCategorias.figuras);
+    }
+
+    actualizarRecord();
+
+    generarTablero();
+
+    actualizarEstadisticas();
+
+});

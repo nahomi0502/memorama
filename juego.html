@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#312e81">
+
+    <title>Memorama Mágico | Juego</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header class="encabezado">
+    <div class="logo">🧠</div>
+    <h1>MEMORAMA MÁGICO</h1>
+    <p>¡Entrena tu mente y demuestra tu memoria!</p>
+    <div class="etiqueta">DESAFÍO DE MEMORIA 2026</div>
+</header>
+
+<main class="contenedor">
+
+    <a href="index.html" class="btn btn-menu">
+        🏠 Volver al menú
+    </a>
+
+    <section class="bienvenida">
+        <h2 id="nombre-categoria">¡Comencemos a jugar! 🎮</h2>
+        <p>Encuentra todas las parejas de tarjetas.</p>
+    </section>
+
+    <section class="configuracion">
+        <label for="dificultad">Selecciona la dificultad:</label>
+
+        <select id="dificultad">
+            <option value="8">Fácil - 8 parejas</option>
+            <option value="12" selected>Medio - 12 parejas</option>
+            <option value="18">Difícil - 18 parejas</option>
+        </select>
+    </section>
+
+    <section class="estadisticas">
+        <div class="dato">
+            <span>🎯</span>
+            <h3>Movimientos</h3>
+            <p id="movimientos">0</p>
+        </div>
+
+        <div class="dato">
+            <span>⏱️</span>
+            <h3>Tiempo</h3>
+            <p id="tiempo">00:00</p>
+        </div>
+
+        <div class="dato">
+            <span>⭐</span>
+            <h3>Parejas</h3>
+            <p id="parejas">0 / 12</p>
+        </div>
+
+        <div class="dato">
+            <span>🏆</span>
+            <h3>Récord</h3>
+            <p id="record">--:--</p>
+        </div>
+    </section>
+
+    <section class="estadistica-extra">
+        <div>
+            <span>💎 Puntuación</span>
+            <strong id="puntuacion">0</strong>
+        </div>
+
+        <div>
+            <span>🔥 Racha</span>
+            <strong id="racha">0</strong>
+        </div>
+
+        <div>
+            <span>🎯 Precisión</span>
+            <strong id="precision">100%</strong>
+        </div>
+    </section>
+
+    <section class="progreso-contenedor">
+        <div class="progreso-texto">
+            <span>Progreso del juego</span>
+            <span id="porcentaje">0%</span>
+        </div>
+
+        <div class="barra">
+            <div id="barra-progreso"></div>
+        </div>
+    </section>
+
+    <section class="instrucciones">
+        <h3>📖 Instrucciones</h3>
+        <p>
+            1. Selecciona una tarjeta para descubrirla.<br>
+            2. Selecciona otra tarjeta para buscar su pareja.<br>
+            3. Si coinciden, ganas una pareja.<br>
+            4. Encuentra todas para ganar.
+        </p>
+    </section>
+
+    <div class="titulo-tablero">
+        <h2>✨ ¡Encuentra las parejas! ✨</h2>
+    </div>
+
+    <div id="tablero" class="tablero"></div>
+
+    <div id="mensaje-turno" class="mensaje-turno">
+        Selecciona tu primera tarjeta.
+    </div>
+
+    <section class="controles">
+        <button id="pista" class="btn btn-pista">💡 Pista</button>
+        <button id="barajar" class="btn btn-barajar">🔀 Barajar</button>
+        <button id="pausar" class="btn btn-pausar">⏸️ Pausar</button>
+        <button id="sonido" class="btn btn-sonido">🔊 Sonido</button>
+        <button id="tema" class="btn btn-tema">🌙 Modo oscuro</button>
+        <button id="reiniciar" class="btn btn-reiniciar">🔄 Reiniciar</button>
+    </section>
+
+    <p id="pistas-restantes">💡 Pistas disponibles: 3</p>
+
+    <section id="resultado" class="resultado oculto">
+        <div class="trofeo">🏆</div>
+
+        <h2>¡FELICIDADES!</h2>
+        <p>¡Has completado el memorama!</p>
+
+        <div class="resumen">
+            <p>Movimientos: <strong id="total-movimientos">0</strong></p>
+            <p>Tiempo: <strong id="tiempo-final">00:00</strong></p>
+            <p>Puntuación: <strong id="puntuacion-final">0</strong></p>
+            <p>Precisión: <strong id="precision-final">0%</strong></p>
+        </div>
+
+        <button id="jugar-otra-vez" class="btn btn-reiniciar">
+            🎉 Jugar nuevamente
+        </button>
+
+        <a href="index.html" class="btn btn-menu">
+            🏠 Regresar al menú
+        </a>
+    </section>
+
+</main>
+
+<footer>
+    <h3>🧠 MEMORAMA MÁGICO</h3>
+    <p>Desarrollado para estimular la memoria y concentración.</p>
+    <p>Proyecto escolar de programación ©️ 2026</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
